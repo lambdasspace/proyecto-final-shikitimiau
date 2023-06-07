@@ -36,6 +36,22 @@ esPrimo n
   where intSqrt = floor . sqrt . fromIntegral
 
 -------------------------------------------------------------------------------------------------
+{-
+  El calculo de estas sumas puede llegar a ser ineficiente sin un buen algoritmo que permita 
+  calcular las combinaciones, por ello se pensó en una solución como esta:
+        cuatroSumas. Función que nos permite obtener una lista con tuplas de 4 elementos
+        donde esos 4 elementos sumados dan como resultado al parámetro n
+        además, a esos 4 elementos a sumar se les aplica la función func
+
+        cuatroSumas n func = [(a,b,c,d) | a <- [0..intSqrt n], b <- [a..intSqrt n], c <- [b..intSqrt n], d <- [c..intSqrt n],  ((func a) + (func b) + (func c) + (func d)) == n]
+        where 
+          intSqrt = floor . sqrt . fromIntegral
+  El problema es que la última línea (intSqrt) causaría conflicto si es que se quiere usar para numeros Triangulares,  Pentagonales o Poligonales.
+  Sin embargo, el trabajar con este tipo de números mas adelante causó problemas igualmente con las funciones gráficas.
+  Por ello, decidí dejar la solución de este problema a futuro y concentrarme en la interfaz gráfica para mostrar el uso de
+  las funciones que servían y se podían graficar.
+
+-}
 
 -- | cuatroSumas. Función que nos permite obtener una lista con tuplas de 4 elementos
 -- donde esos 4 elementos sumados dan como resultado al parámetro n
@@ -76,6 +92,17 @@ poligonal orden k = if orden < 3
 
 -------------------------------------------------------------------------------------------------
 ------------------------------------------ FUNCIONES TAN ----------------------------------------
+-------------------------------------------------------------------------------------------------
+
+{-
+  Algunas observaciones y correcciones a futuro.
+  Se intentaron definir funciones similares para los otros tipos de números que se definieron.
+  Pero se encontraron varios conflictos de tipos que no daba tiempo suficiente para solucionar.
+  Por lo que, dejaré esto como una corrección a futuro para enfocarme en poder hacer la conexión
+  con la interfaz gráfica que es la otra parte importante.
+
+-}
+
 -------------------------------------------------------------------------------------------------
 
 -- | sumaCuatroCuadrados. Función que nos permite obtener una lista de tuplas de 4 elementos con 
@@ -212,7 +239,4 @@ graficoSumaTresCuadrados = imprimeGraficoCond 800 400 "Cantidad de representacio
 
 -- | graficoSumaTresPrimos. Genera un gráfico con la cantidad de representaciones de un n impar como suma de 3 primos en un rango de 0 a 1200. Además ilumina los n primos de otro color.
 graficoSumaTresPrimos = imprimeGraficoCond 600 400 "Cantidad de representaciones de un n impar como suma de 3 primos" 0 1200 sumaTresPrimosPermutationsLength 0.3 0.2 2 esPrimo
-
-
-
 
